@@ -4,7 +4,8 @@
   "description": "MetaverseSolutions - Web3 & Crypto Advisory Website",
   "scripts": {
     "start": "npx serve",
-    "build": "echo 'No build step required'"
+    "build": "echo 'Static site, no build required'",
+    "dev": "npx serve"
   },
   "author": "MetaverseSolutions",
   "license": "MIT",
