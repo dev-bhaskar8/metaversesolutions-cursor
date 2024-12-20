@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Sitemap: https://metaversesolutions.com/sitemap.xml
+
+# Disallow admin and API endpoints
+Disallow: /admin/
+Disallow: /api/ 

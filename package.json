@@ -1,0 +1,14 @@
+{
+  "name": "metaversesolutions",
+  "version": "1.0.0",
+  "description": "MetaverseSolutions - Web3 & Crypto Advisory Website",
+  "scripts": {
+    "start": "npx serve",
+    "build": "echo 'No build step required'"
+  },
+  "author": "MetaverseSolutions",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+} 
