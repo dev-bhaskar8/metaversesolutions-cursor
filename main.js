@@ -8,6 +8,21 @@ document.addEventListener('DOMContentLoaded', function() {
         disable: window.innerWidth < 768
     });
 
+    // Lazy loading for images
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    lazyImages.forEach(img => imageObserver.observe(img));
+
     // Theme toggle functionality
     const themeToggle = document.querySelector('.theme-toggle');
     const htmlElement = document.documentElement;
