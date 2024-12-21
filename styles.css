@@ -265,31 +265,46 @@ html {
 .menu-btn {
     display: none;
     cursor: pointer;
+    width: 30px;
+    height: 20px;
+    position: relative;
+    z-index: 2;
 }
 
-.menu-btn__burger {
-    width: 25px;
-    height: 3px;
-    background: var(--dark-color);
-    transition: all 0.3s ease;
-}
-
-.menu-btn__burger::before,
-.menu-btn__burger::after {
-    content: '';
+.menu-btn span {
+    display: block;
     position: absolute;
-    width: 25px;
-    height: 3px;
-    background: var(--dark-color);
+    height: 2px;
+    width: 100%;
+    background: var(--text-primary);
+    border-radius: 2px;
     transition: all 0.3s ease;
 }
 
-.menu-btn__burger::before {
-    transform: translateY(-8px);
+.menu-btn span:first-child {
+    top: 0;
 }
 
-.menu-btn__burger::after {
-    transform: translateY(8px);
+.menu-btn span:nth-child(2) {
+    top: 9px;
+}
+
+.menu-btn span:last-child {
+    top: 18px;
+}
+
+.menu-btn.open span:first-child {
+    transform: rotate(45deg);
+    top: 9px;
+}
+
+.menu-btn.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-btn.open span:last-child {
+    transform: rotate(-45deg);
+    top: 9px;
 }
 
 .hero {
@@ -778,79 +793,28 @@ html {
     
     .nav-links {
         position: fixed;
-        top: 80px;
-        left: 0;
-        width: 100%;
-        background: var(--bg-primary);
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 80%;
+        max-width: 400px;
+        background: var(--card-bg);
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
         padding: 2rem;
-        gap: 1rem;
-        transform: translateY(-150%);
-        transition: transform 0.3s ease;
-        box-shadow: var(--shadow);
-        z-index: 999;
+        transition: right 0.3s ease;
+        box-shadow: var(--shadow-lg);
+        z-index: 1;
     }
     
     .nav-links.active {
-        transform: translateY(0);
+        right: 0;
     }
 
-    .menu-btn {
-        position: relative;
-        width: 30px;
-        height: 20px;
-        cursor: pointer;
-        z-index: 1001;
-    }
-
-    .menu-btn__burger,
-    .menu-btn__burger::before,
-    .menu-btn__burger::after {
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        background: var(--text-primary);
-        transition: all 0.3s ease;
-    }
-
-    .menu-btn__burger {
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .menu-btn__burger::before {
-        content: '';
-        top: -8px;
-    }
-
-    .menu-btn__burger::after {
-        content: '';
-        bottom: -8px;
-    }
-
-    .menu-btn.open .menu-btn__burger {
-        transform: rotate(45deg);
-    }
-
-    .menu-btn.open .menu-btn__burger::before {
-        transform: rotate(90deg) translate(8px, 0);
-    }
-
-    .menu-btn.open .menu-btn__burger::after {
-        transform: rotate(90deg) translate(-8px, 0);
-    }
-
-    .hero-text h1 {
-        font-size: 2.5rem;
-    }
-    
-    .hero-stats {
-        flex-direction: column;
-        gap: 2rem;
-    }
-    
-    .cta-group {
-        flex-direction: column;
+    .nav-links a {
+        font-size: 1.2rem;
+        padding: 1rem;
     }
 }
 
