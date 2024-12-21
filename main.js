@@ -35,27 +35,44 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu functionality
     const menuBtn = document.querySelector('.menu-btn');
     const navLinks = document.querySelector('.nav-links');
-    const navLinksItems = document.querySelectorAll('.nav-links a');
+    const body = document.body;
 
-    menuBtn.addEventListener('click', function() {
-        this.classList.toggle('open');
+    function toggleMenu() {
+        menuBtn.classList.toggle('open');
         navLinks.classList.toggle('active');
+        body.classList.toggle('menu-open');
+    }
+
+    // Toggle menu on button click
+    menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMenu();
     });
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!menuBtn.contains(e.target) && !navLinks.contains(e.target)) {
-            menuBtn.classList.remove('open');
-            navLinks.classList.remove('active');
+    // Close menu when clicking on a link
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            toggleMenu();
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!menuBtn.contains(e.target) && !navLinks.contains(e.target) && navLinks.classList.contains('active')) {
+            toggleMenu();
         }
     });
 
-    // Close mobile menu when clicking a link
-    navLinksItems.forEach(item => {
-        item.addEventListener('click', () => {
-            menuBtn.classList.remove('open');
-            navLinks.classList.remove('active');
-        });
+    // Prevent clicks inside the menu from closing it
+    navLinks.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+            toggleMenu();
+        }
     });
 
     // Smooth scroll for anchor links
@@ -98,14 +115,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Form submission handling with validation
+    // Form submission handling
     const contactForm = document.querySelector('.contact-form');
     const newsletterForm = document.querySelector('.newsletter-form');
 
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            // Add form validation here if needed
             alert('Thank you for your message. We will get back to you soon!');
             contactForm.reset();
         });
@@ -114,26 +130,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            // Add form validation here if needed
             alert('Thank you for subscribing to our newsletter!');
             newsletterForm.reset();
         });
     }
-
-    // Lazy loading for images
-    const lazyImages = document.querySelectorAll('img[data-src]');
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                observer.unobserve(img);
-            }
-        });
-    });
-
-    lazyImages.forEach(img => imageObserver.observe(img));
 
     // Hide preloader when page is fully loaded
     window.addEventListener('load', function() {
